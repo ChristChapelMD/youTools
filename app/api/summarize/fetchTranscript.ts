@@ -1,9 +1,9 @@
-import { Innertube } from 'youtubei.js/web';
+import { Innertube } from "youtubei.js/web";
 
 export const fetchTranscript = async (video_id: string) => {
   const youtube = await Innertube.create({
-    lang: 'en',
-    location: 'US',
+    lang: "en",
+    location: "US",
     retrieve_player: false,
   });
 
@@ -13,12 +13,12 @@ export const fetchTranscript = async (video_id: string) => {
     const transcriptData = await info.getTranscript();
     const transcript =
       transcriptData?.transcript?.content?.body?.initial_segments.map(
-        (segment) => segment.snippet.text
+        (segment) => segment.snippet.text,
       );
 
     return { title, transcript };
   } catch (error) {
-    console.error('Error fetching transcript:', error);
+    console.error("Error fetching transcript:", error);
     throw error;
   }
 };

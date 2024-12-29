@@ -1,15 +1,15 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 export function useCopyToClipboard() {
   const [copySuccess, setCopySuccess] = useState(false);
 
-  const handleCopyClick = async (url) => {
+  const handleCopyClick = async (url: string) => {
     try {
       await navigator.clipboard.writeText(url);
       setCopySuccess(true);
-      setTimeout(() => setCopySuccess(false), 2000); // Reset after 2 seconds
+      setTimeout(() => setCopySuccess(false), 2000);
     } catch (error) {
-      console.error('Failed to copy URL:', error);
+      console.error("Failed to copy URL:", error);
     }
   };
 

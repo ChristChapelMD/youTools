@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.calendar-scroll::-webkit-scrollbar {
+    width: 8px;
+    scrollbar-width: thin;
+  }
+  .calendar-scroll::-webkit-scrollbar-track {
+    background: var(--background);
+  }
+  .calendar-scroll::-webkit-scrollbar-track:hover {
+    background: var(--muted);
+  }
+  .calendar-scroll::-webkit-scrollbar-thumb {
+    background: #DADCE0;
+    border-radius: 6px;
+    cursor: grab;
+  }
+  .calendar-scroll::-webkit-scrollbar-thumb:hover {
+    background: #BDC1C6;
+  }
+  .calendar-scroll::-webkit-scrollbar-thumb:active {
+    cursor: grabbing;
+  }
+
+  body {
+    background: linear-gradient(135deg, rgba(148, 0, 4, 1), rgba(61, 0, 106, 1)),
+                linear-gradient(135deg, rgba(148, 0, 4, 0.5), rgba(61, 0, 106, 0.5));
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    min-height: 100vh;
+    margin: 0;
+    position: relative;
+  }
+  
+  body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(148, 0, 4, 0.8), rgba(61, 0, 106, 0.8)),
+                linear-gradient(135deg, rgba(148, 0, 4, 0.3), rgba(61, 0, 106, 0.3));
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    opacity: 0.1; /* Adjust opacity as needed */
+    pointer-events: none; /* Ensure the grain texture does not interfere with interactions */
+    mix-blend-mode: screen; /* Adjust blend mode as needed for light/dark mode contrast */
+  }
+  
+  body::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(https://grainy-gradients.vercel.app/noise.svg);
+    opacity: 0.1; /* Adjust opacity as needed */
+    pointer-events: none; /* Ensure the grain texture does not interfere with interactions */
+  }

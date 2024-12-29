@@ -1,60 +1,56 @@
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/next';
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import "@/styles/globals.css";
+import { Metadata, Viewport } from "next";
+import clsx from "clsx";
 
-import { Footer } from '@/components/layout/Footer';
-import { Nav } from '@/components/layout/Nav';
-import { AppConfig } from '@/lib/constants';
-import Providers from '@/utils/rq/queryClient';
+import { Providers } from "./providers";
 
-import './globals.css';
-
-const inter = Inter({ subsets: ['latin'] });
+import { siteConfig } from "@/config/site";
+import { fontSans } from "@/config/fonts";
+import { Navbar } from "@/components/navbar";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: AppConfig.META.TITLE,
-  description: AppConfig.META.DESCRIPTION,
-  twitter: {
-    card: 'summary_large_image',
-    site: AppConfig.SOCIAL.X,
-    title: AppConfig.APP_NAME,
-    creator: AppConfig.SOCIAL.X,
-    images: {
-      url: `${AppConfig.SITE_URL}/x-image.png`,
-      alt: AppConfig.APP_NAME,
-    },
+  title: {
+    default: siteConfig.name,
+    template: `%s - ${siteConfig.name}`,
   },
-  openGraph: {
-    title: AppConfig.META.TITLE,
-    description: AppConfig.META.DESCRIPTION,
-    url: AppConfig.SITE_URL,
-    type: 'website',
-    images: [
-      {
-        url: `${AppConfig.SITE_URL}/x-image.png`,
-        width: 1200,
-        height: 630,
-        alt: AppConfig.APP_NAME,
-      },
-    ],
-    locale: 'en_US',
-    siteName: AppConfig.APP_NAME,
+  description: siteConfig.description,
+  icons: {
+    icon: "/favicon.ico",
   },
 };
 
-export default function RootLayout({ children }) {
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
+};
+
+export default function RootLayout({
+  children,
+}: {
+  readonly children: React.ReactNode;
+}) {
   return (
-    <html lang='en'>
-      <body className={inter.className}>
-        <Providers>
-          <Nav />
-          <main className='my-container min-h-[80vh] pt-16 sm:pt-8'>
-            {children}
-          </main>
-          <Footer />
-          <Analytics />
-          <SpeedInsights />
+    <html suppressHydrationWarning lang="en">
+      <head>
+        <meta content="YouTools" name="apple-mobile-web-app-title" />
+      </head>
+      <body
+        className={clsx(
+          "min-h-screen bg-background font-sans antialiased text=sm sm:text-base",
+          fontSans.variable,
+        )}
+      >
+        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+          <div className="relative flex flex-col h-screen">
+            <Navbar />
+            <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
+              {children}
+            </main>
+            <Footer />
+          </div>
         </Providers>
       </body>
     </html>
