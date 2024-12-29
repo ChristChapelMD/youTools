@@ -20,7 +20,7 @@ async function summarizeTranscript(transcript: string) {
     Scriptural references should be in the format of "Book Chapter:Verse" (e.g., John 3:16).
   `;
 
-  const url = "http://localhost:11434/api/generate";
+  const url = "http://127.0.0.1:11434/api/generate";
   const data = {
     model: "llama3.2",
     prompt: prompt,

@@ -67,6 +67,7 @@ const SummaryAccordion = ({
               {/* Summary Text */}
               <div>
           {summary ? (
+            // eslint-disable-next-line
             <ReactMarkdown>{summary}</ReactMarkdown>
           ) : (
             "No summary available."

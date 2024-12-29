@@ -1,11 +1,12 @@
-import "@/styles/globals.css";
+//import "@styles/global.css"
+import "../styles/globals.css";
 import { Metadata, Viewport } from "next";
 import clsx from "clsx";
 
 import { Providers } from "./providers";
 
 import { siteConfig } from "@/config/site";
-import { fontSans } from "@/config/fonts";
+//import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/Footer";
 
@@ -39,8 +40,8 @@ export default function RootLayout({
       </head>
       <body
         className={clsx(
-          "min-h-screen bg-background font-sans antialiased text=sm sm:text-base",
-          fontSans.variable,
+          "min-h-screen bg-background font-sans antialiased text=sm sm:text-base",{ /*
+          fontSans.variable,*/}
         )}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
