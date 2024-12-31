@@ -27,6 +27,8 @@ const SummaryAccordion = ({
 }: SummaryAccordionProps) => {
   const { copySuccess, handleCopyClick } = useCopyToClipboard();
 
+  console.log(copySuccess);
+
   return (
     <Accordion
       className="mb-4 shadow-none"

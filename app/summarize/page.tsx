@@ -1,7 +1,7 @@
 "use client";
 import type { Selection } from "@react-types/shared";
 
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, useCallback, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Card } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
@@ -22,6 +22,7 @@ import {
 } from "@/lib/helpers";
 import { useUser } from "@/lib/hooks";
 import { AppConfig } from "@/lib/constants";
+
 export default function YoutubeSummarizerPage() {
   const searchParams = useSearchParams();
   const initialVideoId = searchParams.get("v") ?? "";
@@ -64,11 +65,11 @@ export default function YoutubeSummarizerPage() {
   const [videoLength, setVideoLength] = useState<string | null>(null);
   const [debouncedUrl, setDebouncedUrl] = useState<string>("");
 
-  const handlePlayerTimeUpdate = () => {
+  const handlePlayerTimeUpdate = useCallback(() => {
     if (player) {
       setCurrentTime(player.getCurrentTime());
     }
-  };
+  }, [setCurrentTime, player])
 
   useEffect(() => {
     async function loadVideos() {
@@ -87,7 +88,7 @@ export default function YoutubeSummarizerPage() {
     }
 
     loadVideos();
-  }, []);
+  }, [video_id]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -103,7 +104,7 @@ export default function YoutubeSummarizerPage() {
 
       return () => clearInterval(interval);
     }
-  }, [player]);
+  }, [player, handlePlayerTimeUpdate]);
 
   const handlePlayerReady = (ytPlayer: any) => {
     setPlayer(ytPlayer);
@@ -152,7 +153,7 @@ export default function YoutubeSummarizerPage() {
 
       handleSummarize(video_id);
     }
-  }, [video_id]);
+  }, [video_id, router]);
 
   const handleInputChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -201,7 +202,12 @@ export default function YoutubeSummarizerPage() {
     }
   };
 
+  if (false) {
+    console.log(user, embedUrl, videoLength, debouncedUrl)
+  }
+
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <main className="flex flex-col py-4 sm:py-12">
       <h1 className="text-center text-4xl font-bold my-8">
         YouTube Video Summarizer
@@ -362,5 +368,6 @@ export default function YoutubeSummarizerPage() {
       </section>
       <Suspense fallback={null} />
     </main>
+    </Suspense>
   );
 }

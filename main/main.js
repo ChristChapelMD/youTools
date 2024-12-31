@@ -1,10 +1,23 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, protocol } = require("electron");
 const serve = require("electron-serve");
 const path = require("path");
+
+import { createHandler } from 'next-electron-rsc';
 
 const appServe = app.isPackaged ? serve({
   directory: path.join(__dirname, "../out")
 }) : null;
+
+const appPath = app.getAppPath();
+const isDev = process.env.NODE_ENV === 'development';
+
+const { createInterceptor } = createHandler({
+    standaloneDir: path.join(appPath, '.next', 'standalone'),
+    localhostUrl: '<http://localhost:3000>',
+    protocol,
+});
+
+if (!isDev) createInterceptor();
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -28,9 +41,8 @@ const createWindow = () => {
   }
 }
 
-app.on("ready", () => {
-    createWindow();
-});
+app.on("ready",
+    createWindow());
 
 app.on("window-all-closed", () => {
     if(process.platform !== "darwin"){

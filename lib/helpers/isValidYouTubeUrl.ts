@@ -13,6 +13,7 @@ export const isValidYouTubeUrl = (url: string): boolean => {
 
     return hasValidPath && hasVideoParam;
   } catch (error) {
+    console.log(error);
     return false;
   }
 };

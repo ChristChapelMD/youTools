@@ -1,6 +1,5 @@
 import { Divider } from "@nextui-org/divider";
 import { Spacer } from "@nextui-org/spacer";
-import { Calendar } from "@nextui-org/calendar"
 
 import ScheduledCard from "@/components/ScheduledCard";
 import ViewSwitcher from "@/components/ViewSwitcher";

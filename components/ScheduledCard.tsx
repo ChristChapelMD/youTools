@@ -2,7 +2,13 @@ import { Card, CardBody, CardHeader } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
 import { Divider } from "@nextui-org/divider";
 
-import { ScheduledCardProps } from "@/types/scheduledcard";
+interface ScheduledCardProps {
+  readonly videoTitle: string,
+  readonly dateScheduled: string,
+  readonly videoDescription: string,
+  readonly scheduledBy: string,
+  readonly videoThumbnail: string,
+}
 
 export default function ScheduledCard({
   videoTitle,

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { Accordion, AccordionItem } from "@nextui-org/accordion";
 import { Skeleton } from "@nextui-org/skeleton";
 import { Switch } from "@nextui-org/switch";
@@ -38,7 +38,7 @@ const TranscriptAccordion: React.FC<TranscriptAccordionProps> = ({
   const [isAutoScrollEnabled, setIsAutoScrollEnabled] = useState(false);
   const activeRef = useRef<HTMLDivElement | null>(null);
 
-  const fetchTimestamps = async (video_id: string) => {
+  const fetchTimestamps = useCallback(async (video_id: string) => {
     try {
       setLoading(true);
       setError(null);
@@ -64,11 +64,11 @@ const TranscriptAccordion: React.FC<TranscriptAccordionProps> = ({
     } finally {
       setLoading(false);
     }
-  };
+  }, [setVideoLength]);
 
   useEffect(() => {
     if (videoId) fetchTimestamps(videoId);
-  }, [videoId]);
+  }, [videoId, fetchTimestamps]);
 
   useEffect(() => {
     if (isAutoScrollEnabled && activeRef.current) {

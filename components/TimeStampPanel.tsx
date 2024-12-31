@@ -1,6 +1,9 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { Accordion, AccordionItem } from "@nextui-org/accordion";
+import { Switch } from "@nextui-org/switch";
+import { Skeleton } from "@nextui-org/skeleton";
 import { FiDownload } from 'react-icons/fi';
 
 
@@ -100,16 +103,14 @@ export const TimestampsPanel: React.FC<TimestampsPanelProps> = ({
     (timestamp) => timestamp.text.trim() === ''
   );
 
+  console.log(setIsAutoScrollEnabled)
+
   return (
-    <Accordion type='single' collapsible defaultValue='timestamps'>
+    <Accordion defaultValue='timestamps'>
       <AccordionItem value='timestamps'>
-        {/* Header */}
-        <AccordionTrigger className='border-b px-4 py-2 text-lg font-semibold'>
-          Timestamps
-        </AccordionTrigger>
 
         {/* Content */}
-        <AccordionContent className='relative max-h-64 overflow-y-auto p-4 md:max-h-96'>
+        <div className='relative max-h-64 overflow-y-auto p-4 md:max-h-96'>
           {loading ? (
             <>
               <Skeleton className='mb-4 h-6 w-full' />
@@ -144,8 +145,8 @@ export const TimestampsPanel: React.FC<TimestampsPanelProps> = ({
                   </button>
                   <Switch
                     checked={isAutoScrollEnabled}
-                    onCheckedChange={setIsAutoScrollEnabled}
                   />
+                   {/* implement autoscroll later in Switch */}
                 </div>
               </div>
 
@@ -185,7 +186,7 @@ export const TimestampsPanel: React.FC<TimestampsPanelProps> = ({
               ))}
             </div>
           )}
-        </AccordionContent>
+        </div>
       </AccordionItem>
     </Accordion>
   );
